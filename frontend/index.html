@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PotentialTravelHub Cloud</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
+  <div class="container">
+    <h1>PotentialTravelHub Cloud</h1>
+    <p>Travel & Study Abroad Inquiry Platform</p>
+
+    <form id="inquiryForm">
+
+      <input type="text" id="fullName" placeholder="Full Name" required>
+
+      <input type="email" id="email" placeholder="Email Address" required>
+
+      <input type="tel" id="phone" placeholder="Phone Number" required>
+
+      <select id="serviceType" required>
+        <option value="">Select Service</option>
+        <option>Study Abroad</option>
+        <option>Visa Assistance</option>
+        <option>Travel Packages</option>
+        <option>Corporate Travel</option>
+      </select>
+
+      <textarea id="message" placeholder="Tell us about your inquiry" rows="5" required></textarea>
+
+      <button type="submit">Submit Inquiry</button>
+
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
