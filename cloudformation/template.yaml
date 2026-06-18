@@ -1,4 +1,42 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: PotentialTravelHub Cloud Infrastructure
+Description: PotentialTravelHub Cloud - Serverless Inquiry Platform
 
 Resources:
+
+  InquiryTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: PotentialTravelHub-Inquiries
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: inquiryId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: inquiryId
+          KeyType: HASH
+
+  DocumentBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub potentialtravelhub-documents-${AWS::AccountId}-${AWS::Region}
+      VersioningConfiguration:
+        Status: Enabled
+
+  InquiryNotificationTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: PotentialTravelHub-Inquiry-Notifications
+
+Outputs:
+
+  InquiryTableName:
+    Description: DynamoDB table for storing inquiries
+    Value: !Ref InquiryTable
+
+  DocumentBucketName:
+    Description: S3 bucket for inquiry documents
+    Value: !Ref DocumentBucket
+
+  SNSTopicArn:
+    Description: SNS topic for inquiry notifications
+    Value: !Ref InquiryNotificationTopic
