@@ -27,6 +27,58 @@ Resources:
     Properties:
       TopicName: PotentialTravelHub-Inquiry-Notifications
 
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: PotentialTravelHub-LambdaRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+      Policies:
+        - PolicyName: DynamoDBSNSAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:PutItem
+                Resource: !GetAtt InquiryTable.Arn
+
+              - Effect: Allow
+                Action:
+                  - sns:Publish
+                Resource: !Ref InquiryNotificationTopic
+
+  InquiryFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: PotentialTravelHub-InquiryHandler
+      Runtime: python3.12
+      Handler: index.lambda_handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Timeout: 30
+      Code:
+        ZipFile: |
+          def lambda_handler(event, context):
+              return {
+                  "statusCode": 200,
+                  "body": "Placeholder"
+              }
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref InquiryTable
+          TOPIC_ARN: !Ref InquiryNotificationTopic
+
 Outputs:
 
   InquiryTableName:
@@ -40,3 +92,7 @@ Outputs:
   SNSTopicArn:
     Description: SNS topic for inquiry notifications
     Value: !Ref InquiryNotificationTopic
+
+  LambdaFunctionName:
+    Description: Lambda function for processing inquiries
+    Value: !Ref InquiryFunction
