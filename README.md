@@ -94,8 +94,7 @@ The platform follows a multi-layer serverless architecture designed for scalabil
 
 The application successfully stores inquiry records in Amazon DynamoDB. Each inquiry is assigned a unique ID and includes customer details, service type, message, and timestamp.
 
-![DynamoDB Inquiry Records](screenshots/dynamodb-inquiry-records.png)
-
+![CloudFormation Template](screenshots/successful-submission.png)
 ### Stored Attributes
 
 * Inquiry ID
@@ -105,7 +104,7 @@ The application successfully stores inquiry records in Amazon DynamoDB. Each inq
 * Service Type
 * Inquiry Message
 * Timestamp
-  ![CloudFormation Template](screenshots/successful-submission.png)
+  ![DynamoDB Inquiry Records](screenshots/dynamodb-inquiry-records.png)
 
 ## Amazon SNS
 
