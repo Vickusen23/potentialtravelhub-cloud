@@ -124,7 +124,7 @@ The application successfully stores inquiry records in Amazon DynamoDB. Each inq
 
 ## AWS CloudFormation
 
-![CloudFormation Template](screenshots/CloudFormation template.png)
+![CloudFormation Template](screenshots/CloudFormation-template.png)
 * Automates infrastructure deployment.
 * Ensures repeatable and consistent resource provisioning.
 * Supports Infrastructure as Code best practices.
