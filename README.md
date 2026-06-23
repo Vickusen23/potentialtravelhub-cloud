@@ -110,7 +110,7 @@ The application successfully stores inquiry records in Amazon DynamoDB. Each inq
 
 * Sends email notifications for new inquiries.
 * Provides near real-time alerting functionality.
-
+![SNS-Email-Notification](screenshots/sns-email-notification.png)
 ## Amazon CloudWatch
 
 * Captures Lambda execution logs.
