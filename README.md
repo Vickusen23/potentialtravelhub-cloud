@@ -105,6 +105,7 @@ The application successfully stores inquiry records in Amazon DynamoDB. Each inq
 * Service Type
 * Inquiry Message
 * Timestamp
+  ![CloudFormation Template](screenshots/successful-submission.png)
 
 ## Amazon SNS
 
