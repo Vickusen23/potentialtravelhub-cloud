@@ -89,6 +89,12 @@ The platform follows a multi-layer serverless architecture designed for scalabil
 * Stores inquiry records.
 * Uses serverless on-demand capacity mode.
 * Provides highly available and scalable data storage.
+* 
+* ## DynamoDB Data Storage
+
+The application successfully stores inquiry records in Amazon DynamoDB. Each inquiry is assigned a unique ID and includes customer details, service type, message, and timestamp.
+
+![DynamoDB Inquiry Records](screenshots/dynamodb-inquiry-records.png)
 
 ### Stored Attributes
 
