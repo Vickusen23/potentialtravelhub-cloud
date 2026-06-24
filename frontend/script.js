@@ -25,7 +25,7 @@ form.addEventListener("submit", async (e) => {
 
     const result = await response.json();
 
-    alert(result.message || "Inquiry submitted successfully!");
+   document.getElementById("successMessage").style.display = "block";
 
     form.reset();
 
