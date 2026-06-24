@@ -29,6 +29,8 @@ form.addEventListener("submit", async (e) => {
 
     form.reset();
 
+document.getElementById("successMessage").style.display = "block";
+
   } catch (error) {
     console.error(error);
     alert("Something went wrong. Please try again.");
