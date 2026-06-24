@@ -25,11 +25,9 @@ form.addEventListener("submit", async (e) => {
 
     const result = await response.json();
 
-   document.getElementById("successMessage").style.display = "block";
-
     form.reset();
 
-document.getElementById("successMessage").style.display = "block";
+    document.getElementById("successMessage").style.display = "block";
 
   } catch (error) {
     console.error(error);
