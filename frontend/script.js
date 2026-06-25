@@ -11,7 +11,7 @@ form.addEventListener("submit", async (e) => {
   try {
     if (file) {
       const uploadUrlResponse = await fetch(
-        `https://p30rp2pbrc.execute-api.us-east-1.amazonaws.com/generate-upload-url?fileName=${encodeURIComponent(file.name)}`,
+  `https://p30rp2pbrc.execute-api.us-east-1.amazonaws.com/generate-upload-url?fileName=${encodeURIComponent(file.name)}&contentType=${encodeURIComponent(file.type)}`,
         {
           method: "POST",
           headers: {
@@ -23,9 +23,12 @@ form.addEventListener("submit", async (e) => {
       const uploadUrlData = await uploadUrlResponse.json();
 
       await fetch(uploadUrlData.uploadUrl, {
-        method: "PUT",
-        body: file
-      });
+  method: "PUT",
+  headers: {
+    "Content-Type": file.type
+  },
+  body: file
+});
 
       fileKey = uploadUrlData.fileKey || file.name;
     }
