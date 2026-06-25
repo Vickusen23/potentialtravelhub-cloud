@@ -3,15 +3,42 @@ const form = document.getElementById("inquiryForm");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const data = {
-    fullName: document.getElementById("fullName").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
-    service: document.getElementById("service").value,
-    message: document.getElementById("message").value
-  };
+  const fileInput = document.getElementById("document");
+  const file = fileInput.files[0];
+
+  let fileKey = "";
 
   try {
+    if (file) {
+      const uploadUrlResponse = await fetch(
+        `https://p30rp2pbrc.execute-api.us-east-1.amazonaws.com/generate-upload-url?fileName=${encodeURIComponent(file.name)}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      const uploadUrlData = await uploadUrlResponse.json();
+
+      await fetch(uploadUrlData.uploadUrl, {
+        method: "PUT",
+        body: file
+      });
+
+      fileKey = uploadUrlData.fileKey || file.name;
+    }
+
+    const data = {
+      fullName: document.getElementById("fullName").value,
+      email: document.getElementById("email").value,
+      phone: document.getElementById("phone").value,
+      service: document.getElementById("service").value,
+      message: document.getElementById("message").value,
+      documentKey: fileKey
+    };
+
     const response = await fetch(
       "https://p30rp2pbrc.execute-api.us-east-1.amazonaws.com/inquiry",
       {
@@ -23,7 +50,7 @@ form.addEventListener("submit", async (e) => {
       }
     );
 
-    const result = await response.json();
+    await response.json();
 
     form.reset();
 
