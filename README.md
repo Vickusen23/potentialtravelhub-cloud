@@ -1,18 +1,26 @@
 # PotentialTravelHub Cloud
-# 🚀 PotentialTravelHub Cloud
-
+```markdown
 ![AWS](https://img.shields.io/badge/AWS-Cloud-orange?logo=amazonaws&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python&logoColor=white)
 ![AWS Lambda](https://img.shields.io/badge/AWS-Lambda-orange?logo=awslambda&logoColor=white)
-![API Gateway](https://img.shields.io/badge/API-Gateway-red?logo=amazonapigateway&logoColor=white)
-![DynamoDB](https://img.shields.io/badge/Amazon-DynamoDB-blue?logo=amazondynamodb&logoColor=white)
+![Amazon API Gateway](https://img.shields.io/badge/API-Gateway-red?logo=amazonapigateway&logoColor=white)
+![Amazon DynamoDB](https://img.shields.io/badge/Amazon-DynamoDB-blue?logo=amazondynamodb&logoColor=white)
 ![Amazon S3](https://img.shields.io/badge/Amazon-S3-green?logo=amazons3&logoColor=white)
 ![Amazon SNS](https://img.shields.io/badge/Amazon-SNS-yellow?logo=amazonaws&logoColor=white)
+![Amazon CloudFront](https://img.shields.io/badge/Amazon-CloudFront-blue?logo=amazoncloudfront&logoColor=white)
 ![CloudFormation](https://img.shields.io/badge/CloudFormation-IaC-orange?logo=awscloudformation&logoColor=white)
-![CloudFront](https://img.shields.io/badge/Amazon-CloudFront-blue?logo=amazoncloudfront&logoColor=white)
 ![Serverless](https://img.shields.io/badge/Architecture-Serverless-success)
-![IaC](https://img.shields.io/badge/Infrastructure-as%20Code-purple)
+![Infrastructure as Code](https://img.shields.io/badge/IaC-Infrastructure%20as%20Code-purple)
+```
+[![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge)](https://d2p73z2docwgx1.cloudfront.net)
 
+[![Documentation](https://img.shields.io/badge/Documentation-blue?style=for-the-badge)](README.md)
+
+[![Architecture](https://img.shields.io/badge/Architecture-orange?style=for-the-badge)](diagrams/architecture-diagram.png)
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/YOUR_PROFILE)
+
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail)](mailto:YOUR_EMAIL)
 > **A Production-Ready Serverless Travel & Study Abroad Inquiry Platform Built on AWS**
 
 ## Overview
