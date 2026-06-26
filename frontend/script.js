@@ -24,9 +24,6 @@ form.addEventListener("submit", async (e) => {
 
       await fetch(uploadUrlData.uploadUrl, {
         method: "PUT",
-        headers: {
-          "Content-Type": file.type
-        },
         body: file
       });
 
