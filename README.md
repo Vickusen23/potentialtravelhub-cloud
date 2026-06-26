@@ -1,320 +1,649 @@
 # PotentialTravelHub Cloud
+# 🚀 PotentialTravelHub Cloud
 
-## Serverless Travel & Study Abroad Inquiry Platform
+![AWS](https://img.shields.io/badge/AWS-Cloud-orange?logo=amazonaws&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python&logoColor=white)
+![AWS Lambda](https://img.shields.io/badge/AWS-Lambda-orange?logo=awslambda&logoColor=white)
+![API Gateway](https://img.shields.io/badge/API-Gateway-red?logo=amazonapigateway&logoColor=white)
+![DynamoDB](https://img.shields.io/badge/Amazon-DynamoDB-blue?logo=amazondynamodb&logoColor=white)
+![Amazon S3](https://img.shields.io/badge/Amazon-S3-green?logo=amazons3&logoColor=white)
+![Amazon SNS](https://img.shields.io/badge/Amazon-SNS-yellow?logo=amazonaws&logoColor=white)
+![CloudFormation](https://img.shields.io/badge/CloudFormation-IaC-orange?logo=awscloudformation&logoColor=white)
+![CloudFront](https://img.shields.io/badge/Amazon-CloudFront-blue?logo=amazoncloudfront&logoColor=white)
+![Serverless](https://img.shields.io/badge/Architecture-Serverless-success)
+![IaC](https://img.shields.io/badge/Infrastructure-as%20Code-purple)
 
-PotentialTravelHub Cloud is a serverless web application designed to streamline travel and study-abroad inquiry management. The platform enables prospective clients to submit inquiries through a web-based form, which are processed automatically using AWS serverless services.
+> **A Production-Ready Serverless Travel & Study Abroad Inquiry Platform Built on AWS**
 
-The solution demonstrates the implementation of a scalable, event-driven architecture built with Amazon API Gateway, AWS Lambda, Amazon DynamoDB, Amazon SNS, AWS CloudFormation, and other AWS services. The project highlights modern cloud-native design principles including Infrastructure as Code (IaC), serverless computing, managed databases, and automated notifications.
+## Overview
+
+**PotentialTravelHub Cloud** is a production-style serverless web application designed to automate travel and study-abroad inquiry management using Amazon Web Services (AWS).
+
+The platform enables prospective clients to submit inquiries and supporting documents through a secure web interface hosted on Amazon CloudFront and Amazon S3. Behind the scenes, AWS serverless services process each request, securely store uploaded documents, persist inquiry records, and automatically notify administrators of new submissions.
+
+This project demonstrates how modern AWS services can be combined to build a highly available, scalable, secure, and cost-effective cloud-native application with minimal operational overhead.
+
+The solution follows AWS Well-Architected principles by leveraging managed services, event-driven processing, Infrastructure as Code (IaC), and serverless computing to eliminate server management while maintaining high scalability and reliability.
 
 ---
 
 # Project Objectives
 
-The primary objectives of this project are to:
+This project was built to demonstrate the practical implementation of a modern serverless application architecture while solving a real-world business problem.
 
-* Build a fully serverless inquiry management platform.
-* Automate inquiry processing and notifications.
-* Implement Infrastructure as Code using AWS CloudFormation.
-* Demonstrate secure and scalable cloud architecture patterns.
-* Showcase practical AWS Solutions Architect skills through a real-world business use case.
+The primary objectives include:
+
+* Design and deploy a fully serverless web application on AWS.
+* Automate travel and study-abroad inquiry processing.
+* Securely upload and store supporting documents using Amazon S3 Pre-Signed URLs.
+* Store inquiry records in a scalable NoSQL database (Amazon DynamoDB).
+* Deliver near real-time administrator notifications using Amazon SNS.
+* Implement Infrastructure as Code (IaC) using AWS CloudFormation.
+* Showcase best practices in AWS architecture, security, scalability, and event-driven application design.
 
 ---
 
-# Architecture Overview
+# Solution Architecture
 
-The platform follows a multi-layer serverless architecture designed for scalability, reliability, and cost efficiency.
+The application follows a multi-tier serverless architecture consisting of presentation, application, storage, and monitoring layers.
+
+## Architecture Diagram
+
+The diagram below illustrates the complete architecture of the application.
 
 ![PotentialTravelHub Cloud Architecture](diagrams/architecture-diagram.png)
 
-## Architecture Layers
+### Architecture Components
 
-### Frontend Layer
+### Presentation Layer
 
 * Amazon Route 53
 * AWS Certificate Manager (ACM)
 * Amazon CloudFront
 * Amazon S3 Frontend Bucket
 
-### Application Layer
-
-* Amazon API Gateway
-* AWS Lambda
-
-### Data & Notification Layer
-
-* Amazon DynamoDB
-* Amazon SNS
-* Amazon S3 Document Bucket (Future Enhancement)
-
-### Monitoring Layer
-
-* Amazon CloudWatch
+Responsible for securely delivering the static frontend application over HTTPS with low latency through Amazon CloudFront.
 
 ---
 
-# Request Flow
+### API Layer
 
-1. Users access the application through a web browser.
-2. Amazon Route 53 routes requests to CloudFront.
-3. CloudFront delivers frontend content securely using an ACM SSL/TLS certificate.
-4. Static frontend assets are served from an Amazon S3 bucket.
-5. The frontend submits inquiry requests to Amazon API Gateway.
-6. API Gateway invokes the AWS Lambda function.
-7. Lambda processes and validates the request.
-8. Inquiry information is stored in Amazon DynamoDB.
-9. Lambda publishes a notification message to Amazon SNS.
-10. SNS sends an email notification to the administrator.
-11. Amazon CloudWatch captures logs and operational metrics.
+* Amazon API Gateway
+
+Provides secure REST API endpoints that receive requests from the frontend and route them to the appropriate AWS Lambda function.
+
+The application exposes two REST endpoints:
+
+| Endpoint                      | Purpose                                                            |
+| ----------------------------- | ------------------------------------------------------------------ |
+| **POST /generate-upload-url** | Generates an Amazon S3 Pre-Signed URL for secure document uploads. |
+| **POST /inquiry**             | Processes customer inquiries and stores them in Amazon DynamoDB.   |
+
+---
+
+### Compute Layer
+
+Two independent AWS Lambda functions handle different business responsibilities.
+
+#### UploadURLHandler
+
+Responsible for:
+
+* Generating secure Amazon S3 Pre-Signed URLs.
+* Returning temporary upload URLs to the frontend.
+* Preventing direct public access to the document bucket.
+
+#### InquiryHandler
+
+Responsible for:
+
+* Validating inquiry submissions.
+* Processing customer information.
+* Storing inquiry records in Amazon DynamoDB.
+* Publishing notification messages to Amazon SNS.
+
+---
+
+### Storage Layer
+
+#### Amazon DynamoDB
+
+Stores inquiry records including:
+
+* Inquiry ID
+* Customer Name
+* Email Address
+* Phone Number
+* Selected Service
+* Inquiry Message
+* Uploaded Document Key
+* Submission Timestamp
+
+#### Amazon S3 Document Bucket
+
+Stores uploaded customer documents securely using Pre-Signed URLs without exposing the bucket publicly.
+
+---
+
+### Notification Layer
+
+#### Amazon SNS
+
+Automatically sends email notifications whenever a new inquiry is successfully submitted.
+
+---
+
+### Monitoring Layer
+
+#### Amazon CloudWatch
+
+Captures Lambda execution logs, API activity, and operational metrics for monitoring and troubleshooting.
+
+---
+
+# End-to-End Workflow
+
+The following workflow describes how a customer inquiry moves through the application.
+
+1. A customer accesses the website through Amazon CloudFront.
+
+2. CloudFront securely delivers the static frontend hosted in the Amazon S3 Frontend Bucket.
+
+3. The customer completes the inquiry form and optionally selects a supporting document.
+
+4. The frontend requests a secure upload URL by calling:
+
+```text
+POST /generate-upload-url
+```
+
+5. Amazon API Gateway invokes the **UploadURLHandler** Lambda function.
+
+6. UploadURLHandler generates a temporary Amazon S3 Pre-Signed URL and returns it to the frontend.
+
+7. The browser uploads the selected document directly to the Amazon S3 Document Bucket using the generated Pre-Signed URL.
+
+8. After the upload completes successfully, the frontend submits the inquiry details by calling:
+
+```text
+POST /inquiry
+```
+
+9. Amazon API Gateway invokes the **InquiryHandler** Lambda function.
+
+10. InquiryHandler validates the request and stores the inquiry record in Amazon DynamoDB.
+
+11. InquiryHandler publishes a notification message to Amazon SNS.
+
+12. Amazon SNS immediately sends an email notification to the administrator.
+
+13. Amazon CloudWatch captures logs and execution metrics for both Lambda functions, providing operational visibility and troubleshooting capabilities.
+
+---
+
+# Repository Structure
+
+```text
+potentialtravelhub-cloud
+│
+├── cloudformation/
+│   └── template.yaml
+│
+├── diagrams/
+│   └── architecture-diagram.png
+│
+├── frontend/
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+│
+├── lambda/
+│   ├── inquiry-handler.py
+│   ├── upload-url-handler.py
+│   └── requirements.txt
+│
+├── screenshots/
+│   ├── 01-cloudfront-success.png
+│   ├── 02-s3-frontend-bucket.png
+│   ├── 03-s3-document-bucket.png
+│   ├── 04-api-gateway-routes.png
+│   ├── 05-lambda-functions.png
+│   ├── 06-dynamodb-record.png
+│   ├── 07-sns-email.png
+│   ├── 08-cloudformation-stack.png
+│   ├── 09-cloudformation-template.png
+│   └── 10-local-frontend-preview.png
+│
+├── README.md
+│
+└── LICENSE
+```
+
 
 ---
 
 # AWS Services Used
 
-## Amazon API Gateway
+The application leverages a collection of fully managed AWS services to deliver a secure, scalable, highly available, and cost-effective serverless solution.
 
-* Provides a secure public API endpoint.
-* Receives inquiry submissions from the frontend.
-* Routes requests to AWS Lambda.
-
-## AWS Lambda
-
-* Processes inquiry requests.
-* Generates unique inquiry identifiers.
-* Stores inquiry records in DynamoDB.
-* Publishes notification messages to SNS.
-* Returns API responses to the frontend.
-
-## Amazon DynamoDB
-
-* Stores inquiry records.
-* Uses serverless on-demand capacity mode.
-* Provides highly available and scalable data storage.
-
-![CloudFormation Template](screenshots/successful-submission.png)
-### Stored Attributes
-
-* Inquiry ID
-* Full Name
-* Email Address
-* Phone Number
-* Service Type
-* Inquiry Message
-* Timestamp
-
-*  ## DynamoDB Data Storage
-
-The application successfully stores inquiry records in Amazon DynamoDB. Each inquiry is assigned a unique ID and includes customer details, service type, message, and timestamp.
-  ![DynamoDB Inquiry Records](screenshots/dynamodb-inquiry-records.png)
-
-## Amazon SNS
-
-* Sends email notifications for new inquiries.
-* Provides near real-time alerting functionality.
-![SNS-Email-Notification](screenshots/sns-email-notification.png)
-## Amazon CloudWatch
-
-* Captures Lambda execution logs.
-* Provides monitoring and troubleshooting capabilities.
-* Supports operational visibility across the application.
-
-## AWS IAM
-
-* Manages permissions and access control.
-* Grants Lambda access to DynamoDB and SNS resources following the principle of least privilege.
-
-## AWS CloudFormation
-
-![CloudFormation Template](screenshots/CloudFormation-template.png)
-* Automates infrastructure deployment.
-* Ensures repeatable and consistent resource provisioning.
-* Supports Infrastructure as Code best practices.
-
-## Amazon S3
-
-* Planned frontend hosting layer.
-* Planned document storage layer for supporting client uploads.
-
-## Amazon CloudFront
-
-* Planned global content delivery layer.
-* Improves website performance and security.
-
-## Amazon Route 53
-
-* Planned DNS routing service.
-* Supports custom domain integration.
-
-## AWS Certificate Manager (ACM)
-
-* Planned SSL/TLS certificate management.
-* Enables secure HTTPS communication.
+| AWS Service                       | Purpose                                                                   |
+| --------------------------------- | ------------------------------------------------------------------------- |
+| **Amazon Route 53**               | Routes user requests to the application using DNS.                        |
+| **AWS Certificate Manager (ACM)** | Provides SSL/TLS certificates for secure HTTPS communication.             |
+| **Amazon CloudFront**             | Delivers the frontend globally with low latency and improved security.    |
+| **Amazon S3 (Frontend Bucket)**   | Hosts the static HTML, CSS, and JavaScript application.                   |
+| **Amazon API Gateway**            | Exposes secure REST API endpoints for frontend communication.             |
+| **AWS Lambda (InquiryHandler)**   | Processes customer inquiries and business logic.                          |
+| **AWS Lambda (UploadURLHandler)** | Generates secure Amazon S3 Pre-Signed URLs for document uploads.          |
+| **Amazon DynamoDB**               | Stores inquiry records using serverless NoSQL storage.                    |
+| **Amazon S3 (Document Bucket)**   | Securely stores uploaded customer documents.                              |
+| **Amazon SNS**                    | Sends automatic email notifications for new inquiries.                    |
+| **Amazon CloudWatch**             | Captures application logs, monitoring data, and operational metrics.      |
+| **AWS IAM**                       | Implements secure access control and least-privilege permissions.         |
+| **AWS CloudFormation**            | Automates infrastructure provisioning using Infrastructure as Code (IaC). |
 
 ---
 
-# Key Features
+# Project Walkthrough
 
-* Fully serverless architecture
-* Automated inquiry processing
-* Real-time email notifications
-* Persistent data storage
-* Infrastructure as Code (IaC)
-* Event-driven workflow
-* Scalable and cost-efficient design
-* Managed AWS services
-* Low operational overhead
+The following screenshots demonstrate the complete deployment and functionality of the application.
+
+---
+
+## 1. Local Frontend Development
+
+The application was initially developed and tested locally before deployment to AWS.
+
+![Local Frontend Preview](screenshots/10-frontend-local-preview-before-update.png)
+
+---
+
+## 2. CloudFront Production Deployment
+
+The frontend application is deployed to Amazon S3 and delivered globally through Amazon CloudFront, providing secure HTTPS access and low-latency content delivery.
+
+![CloudFront Deployment](screenshots/01-cloudfront-success.png)
+
+---
+
+## 3. Amazon S3 Frontend Bucket
+
+The frontend bucket stores all static website assets, including HTML, CSS, and JavaScript files that power the application.
+
+**Contents include:**
+
+* index.html
+* styles.css
+* script.js
+
+![Frontend Bucket](screenshots/02-s3-frontend-bucket.png)
+
+---
+
+## 4. API Gateway
+
+Amazon API Gateway provides secure REST endpoints used by the frontend application.
+
+### Available Endpoints
+
+| Method | Endpoint               | Description                                  |
+| ------ | ---------------------- | -------------------------------------------- |
+| POST   | `/generate-upload-url` | Generates a secure Amazon S3 Pre-Signed URL. |
+| POST   | `/inquiry`             | Processes and stores customer inquiries.     |
+
+![API Gateway](screenshots/04-api-gateway-routes.png)
+
+---
+
+## 5. AWS Lambda Functions
+
+The application uses two independent AWS Lambda functions.
+
+### InquiryHandler
+
+Responsible for:
+
+* Processing customer inquiries
+* Validating request data
+* Writing inquiry records to DynamoDB
+* Publishing SNS notifications
+
+### UploadURLHandler
+
+Responsible for:
+
+* Generating Amazon S3 Pre-Signed URLs
+* Securing document uploads
+* Preventing direct public bucket access
+
+![Lambda Functions](screenshots/05-lambda-functions.png)
+
+---
+
+## 6. Amazon S3 Document Upload
+
+Supporting documents uploaded by customers are stored securely in a dedicated Amazon S3 bucket.
+
+Instead of exposing the bucket publicly, uploads are performed using temporary Amazon S3 Pre-Signed URLs generated by AWS Lambda.
+
+This approach improves security while allowing users to upload files directly to Amazon S3.
+
+Supported upload examples include:
+
+* Passport copies
+* Academic transcripts
+* Certificates
+* Identification documents
+
+![S3 Document Bucket](screenshots/03-s3-document-bucket.png)
+
+---
+
+## 7. Amazon DynamoDB
+
+Customer inquiries are automatically stored in Amazon DynamoDB after successful validation.
+
+Each record contains:
+
+* Inquiry ID
+* Customer Name
+* Email Address
+* Phone Number
+* Requested Service
+* Inquiry Message
+* Uploaded Document Key
+* Submission Timestamp
+
+The application uses DynamoDB On-Demand Capacity Mode, allowing automatic scaling without capacity planning.
+
+![DynamoDB Records](screenshots/06-dynamodb-record.png)
+
+---
+
+## 8. Amazon SNS Email Notifications
+
+Immediately after an inquiry is stored successfully, AWS Lambda publishes a notification to Amazon SNS.
+
+Amazon SNS automatically sends an email notification to the administrator, ensuring new customer inquiries receive prompt attention.
+
+![SNS Notification](screenshots/07-sns-email.png)
 
 ---
 
 # Infrastructure Deployment
 
-Core backend infrastructure was deployed using AWS CloudFormation.
+The core backend infrastructure was provisioned using AWS CloudFormation, enabling repeatable, consistent, and automated deployments.
 
 ### Resources Provisioned
 
-* DynamoDB Table
-* SNS Topic
-* IAM Execution Role
-* Lambda Function
+* AWS Lambda Functions
+* Amazon DynamoDB Table
+* Amazon SNS Topic
+* IAM Roles and Policies
 
-API Gateway integrations and frontend connectivity were configured separately to complete the end-to-end workflow.
-
----
-
-# Challenges Encountered & Solutions
-
-## 1. CORS Configuration Issues
-
-### Problem
-
-The frontend application was unable to communicate with API Gateway due to Cross-Origin Resource Sharing (CORS) restrictions.
-
-### Solution
-
-* Enabled CORS in API Gateway.
-* Added Access-Control-Allow-Origin headers to Lambda responses.
-* Redeployed the API after updating configurations.
+Additional AWS services, including Amazon API Gateway, Amazon CloudFront, Amazon Route 53, Amazon S3, and AWS Certificate Manager, were configured to complete the production deployment.
 
 ---
 
-## 2. Missing Lambda Integration
+## CloudFormation Stack
 
-### Problem
+The CloudFormation stack successfully provisions the application's backend resources.
 
-The API route was created successfully but did not have a Lambda integration attached.
-
-### Solution
-
-* Attached the Lambda function to the POST /inquiry route.
-* Verified deployment and integration functionality.
+![CloudFormation Stack](screenshots/08-cloudformation-stack.png)
 
 ---
 
-## 3. JSON Response Parsing Errors
+## Infrastructure as Code
 
-### Problem
+The infrastructure template defines the core AWS resources required by the application, demonstrating Infrastructure as Code (IaC) principles and enabling repeatable deployments.
+
+![CloudFormation Template](screenshots/09-cloudformation-template.png)
+
+
+
+---
+
+# Engineering Challenges & Solutions
+
+Building a production-ready serverless application involved solving several real-world engineering challenges. The following issues were encountered during development and resolved through systematic troubleshooting and AWS best practices.
+
+---
+
+## 1. Cross-Origin Resource Sharing (CORS)
+
+### Challenge
+
+The frontend application could not communicate with Amazon API Gateway due to Cross-Origin Resource Sharing (CORS) restrictions.
+
+### Resolution
+
+* Configured CORS for API Gateway routes.
+* Added the required `Access-Control-Allow-Origin` headers to Lambda responses.
+* Redeployed the API to apply the updated configuration.
+
+---
+
+## 2. API Gateway Integration
+
+### Challenge
+
+The API routes were created successfully, but requests were not reaching the Lambda functions because integrations had not been configured.
+
+### Resolution
+
+* Connected each API Gateway route to its corresponding AWS Lambda function.
+* Verified integrations using API Gateway route testing and browser developer tools.
+
+---
+
+## 3. JSON Response Handling
+
+### Challenge
 
 The frontend expected JSON responses while the backend initially returned incompatible response formats.
 
-### Solution
+### Resolution
 
-* Updated Lambda responses to return properly formatted JSON.
-* Added frontend validation and error handling.
+* Updated Lambda functions to return properly formatted JSON responses.
+* Added frontend validation and improved error handling.
 
 ---
 
-## 4. API Gateway Deployment Challenges
+## 4. CloudFront Cache Invalidation
 
-### Problem
+### Challenge
 
-The API route existed but changes were not reflected due to deployment and stage configuration issues.
+Frontend updates were not immediately visible after modifying HTML, CSS, and JavaScript files due to CloudFront caching.
 
-### Solution
+### Resolution
 
-* Verified the $default stage configuration.
-* Redeployed API Gateway.
-* Tested endpoints using browser developer tools and Live Server.
+* Uploaded updated frontend assets to the Amazon S3 frontend bucket.
+* Created CloudFront invalidations to refresh cached content.
+
+---
+
+## 5. Secure Document Uploads
+
+### Challenge
+
+Direct browser uploads to Amazon S3 required secure access without exposing the document bucket publicly.
+
+### Resolution
+
+* Implemented a dedicated UploadURLHandler Lambda function.
+* Generated temporary Amazon S3 Pre-Signed URLs.
+* Uploaded documents securely from the browser directly to Amazon S3.
+
+---
+
+## 6. IAM Permissions
+
+### Challenge
+
+AWS Lambda initially lacked sufficient permissions to access required AWS services.
+
+### Resolution
+
+Configured least-privilege IAM policies allowing Lambda functions to:
+
+* Read and write Amazon DynamoDB records.
+* Publish Amazon SNS notifications.
+* Generate Amazon S3 Pre-Signed URLs.
+* Upload documents securely.
+
+---
+
+## 7. End-to-End Testing
+
+### Challenge
+
+Multiple AWS services needed to work together seamlessly across the entire application workflow.
+
+### Resolution
+
+Performed complete end-to-end testing to verify:
+
+* Frontend deployment
+* API Gateway routing
+* Lambda execution
+* Secure document uploads
+* DynamoDB storage
+* SNS notifications
+* CloudWatch logging
 
 ---
 
 # Skills Demonstrated
 
-### Cloud Architecture
+This project demonstrates practical experience across multiple cloud engineering disciplines.
 
-* AWS Serverless Architecture Design
-* Event-Driven Architecture
-* Multi-Tier Application Design
+## Cloud Architecture
 
-### AWS Services
+* AWS Serverless Architecture
+* Event-Driven Design
+* Multi-Tier Cloud Architecture
+* AWS Well-Architected Principles
+
+---
+
+## AWS Services
 
 * Amazon API Gateway
 * AWS Lambda
+* Amazon S3
+* Amazon CloudFront
 * Amazon DynamoDB
 * Amazon SNS
 * AWS IAM
 * Amazon CloudWatch
 * AWS CloudFormation
+* Amazon Route 53
+* AWS Certificate Manager (ACM)
 
-### Development & Integration
+---
 
+## Development
+
+* REST API Integration
 * Frontend and Backend Integration
-* REST API Development
 * JSON Processing
-* CORS Troubleshooting
+* JavaScript
+* Python
 * Error Handling
+* Browser Debugging
+* Cloud Troubleshooting
 
-### Infrastructure as Code
+---
 
-* CloudFormation Templates
-* Automated Resource Provisioning
-* Repeatable Deployments
+## Security
+
+* IAM Least-Privilege Access
+* Secure HTTPS Delivery
+* Amazon S3 Pre-Signed URLs
+* Secure File Upload Architecture
+
+---
+
+## Infrastructure as Code
+
+* AWS CloudFormation
+* Automated Infrastructure Deployment
+* Repeatable Cloud Provisioning
 
 ---
 
 # Future Enhancements
 
-The architecture is designed to support additional enterprise-grade capabilities including:
+The architecture has been intentionally designed to support future enterprise-scale improvements.
 
-* Amazon S3 document upload support
-* CloudFront production deployment
-* Custom domain integration
-* HTTPS implementation using ACM
-* Amazon Cognito authentication
+Planned enhancements include:
+
+* Amazon Cognito user authentication
 * Administrative dashboard
-* Inquiry analytics and reporting
-* Role-based access control
-* Multi-user support
-* File attachment processing
-
----
-
-# Frontend Preview
-
-![Frontend Preview](screenshots/frontend-local-preview.png)
-
----
-
-# Author
-
-**Victor Pius Usen**
-
-AWS Certified Solutions Architect – Associate
-
-Founder & CEO, Potential Travel & Edu Hub Ltd
+* Customer inquiry tracking portal
+* Amazon SES customer confirmation emails
+* Amazon EventBridge automation
+* Amazon SQS asynchronous processing
+* AWS X-Ray distributed tracing
+* CI/CD pipeline using GitHub Actions
+* AWS WAF integration
+* Custom analytics dashboard
+* Automated backup and disaster recovery
+* Multi-language frontend support
 
 ---
 
 # Project Status
 
-✅ Backend Serverless Workflow Completed
+| Component                     | Status      |
+| ----------------------------- | ----------- |
+| Serverless Architecture       | ✅ Completed |
+| CloudFormation Infrastructure | ✅ Completed |
+| Amazon CloudFront Deployment  | ✅ Completed |
+| Amazon S3 Frontend Hosting    | ✅ Completed |
+| Amazon API Gateway            | ✅ Completed |
+| AWS Lambda Functions          | ✅ Completed |
+| Amazon DynamoDB               | ✅ Completed |
+| Amazon SNS Notifications      | ✅ Completed |
+| Amazon S3 Document Uploads    | ✅ Completed |
+| Amazon S3 Pre-Signed URLs     | ✅ Completed |
+| Amazon CloudWatch Monitoring  | ✅ Completed |
+| HTTPS Delivery                | ✅ Completed |
+| Administrative Dashboard      | 🚧 Planned  |
+| Amazon Cognito Authentication | 🚧 Planned  |
+| CI/CD Pipeline                | 🚧 Planned  |
 
-✅ API Gateway Integration Completed
+---
 
-✅ Lambda Processing Completed
+# Key Takeaways
 
-✅ DynamoDB Storage Completed
+This project demonstrates the implementation of a complete serverless application using AWS managed services. It showcases practical experience in cloud architecture, Infrastructure as Code (IaC), secure API development, event-driven processing, and scalable storage solutions.
 
-✅ SNS Email Notifications Completed
+Rather than relying on traditional servers, the application embraces a fully managed serverless architecture that minimizes operational overhead while maximizing scalability, security, and reliability.
 
-✅ CloudFormation Deployment Completed
+The project reflects real-world AWS Solutions Architect practices and highlights the ability to design, deploy, troubleshoot, and document cloud-native applications using industry best practices.
 
-🚧 Production Hosting Layer (S3, CloudFront, Route 53, ACM) Planned
+---
+
+# Author
+
+## Victor Pius Usen
+
+**AWS Certified Solutions Architect – Associate**
+
+Founder & CEO
+**Potential Travel & Edu Hub Ltd**
+
+### Connect With Me
+
+* LinkedIn: https://www.linkedin.com/in/victor-u-033a17135/
+* GitHub: https://github.com/Vickusen23
+* Email: victorusen23@gmail.com
+
+---
+
+# Acknowledgements
+
+This project was developed as part of my continuous journey in cloud computing, applying AWS best practices to solve a real-world business problem through modern serverless architecture.
+
+Special thanks to the AWS documentation, learning resources, and the cloud engineering community for continually advancing best practices in cloud-native application development.
