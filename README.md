@@ -254,7 +254,7 @@ The following screenshots demonstrate the complete deployment and functionality 
 
 The application was initially developed and tested locally before deployment to AWS.
 
-![Local Frontend Preview](screenshots/10-frontend-local-preview-before-update.png)
+![Local Frontend Preview](screenshots/10_frontend-local-preview-before-update.png)
 
 ---
 
