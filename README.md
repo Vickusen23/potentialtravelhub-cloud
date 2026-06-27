@@ -12,16 +12,13 @@
 ![CloudFront](https://img.shields.io/badge/CDN-CloudFront-purple?style=for-the-badge&logo=amazonaws)
 ![Amazon S3](https://img.shields.io/badge/Storage-Amazon_S3-green?style=for-the-badge&logo=amazons3)
 
-
 [![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge)](https://d2p73z2docwgx1.cloudfront.net)
-
 [![Documentation](https://img.shields.io/badge/Documentation-blue?style=for-the-badge)](documentation)
-
 [![Architecture](https://img.shields.io/badge/Architecture-orange?style=for-the-badge)](diagrams/architecture-diagram.png)
-
+## 📬 Contacts
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/victor-u-033a17135/)
-
 [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail)](mailto:victorusen23@gmail.com)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/2347018858107?text=Hi%20I%20want%20to%20chat)
 > **A Production-Ready Serverless Travel & Study Abroad Inquiry Platform Built on AWS**
 
 ## Overview
