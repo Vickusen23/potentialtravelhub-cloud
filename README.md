@@ -15,7 +15,7 @@
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge)](https://d2p73z2docwgx1.cloudfront.net)
 
-[![Documentation](https://img.shields.io/badge/Documentation-blue?style=for-the-badge)](README.md)
+[![Documentation](https://img.shields.io/badge/Documentation-blue?style=for-the-badge)](documentation)
 
 [![Architecture](https://img.shields.io/badge/Architecture-orange?style=for-the-badge)](diagrams/architecture-diagram.png)
 
