@@ -18,7 +18,7 @@
 ## 📬 Contacts
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/victor-u-033a17135/)
 [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail)](mailto:victorusen23@gmail.com)
-[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/2347018858107?text=Hi%20I%20want%20to%20chat)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/2347018858107?text=Hi%20Victor%2C%20I%20saw%20your%20AWS%20project%20on%20GitHub%20and%20would%20like%20to%20connect.)
 > **A Production-Ready Serverless Travel & Study Abroad Inquiry Platform Built on AWS**
 
 ## Overview
@@ -643,7 +643,7 @@ Founder & CEO
 ### Connect With Me
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/victor-u-033a17135/)
-[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/2347018858107?text=Hi%20I%20want%20to%20chat)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/2347018858107?text=Hi%20Victor%2C%20I%20saw%20your%20AWS%20project%20on%20GitHub%20and%20would%20like%20to%20connect.)
 [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail)](mailto:victorusen23@gmail.com)
 📧 **Email:** **victorusen23@gmail.com**
 
