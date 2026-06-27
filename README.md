@@ -19,9 +19,9 @@
 
 [![Architecture](https://img.shields.io/badge/Architecture-orange?style=for-the-badge)](diagrams/architecture-diagram.png)
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/YOUR_PROFILE)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/victor-u-033a17135/)
 
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail)](mailto:YOUR_EMAIL)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail)](mailto:victorusen23@gmail.com)
 > **A Production-Ready Serverless Travel & Study Abroad Inquiry Platform Built on AWS**
 
 ## Overview
