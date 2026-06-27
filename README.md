@@ -1,16 +1,19 @@
 # PotentialTravelHub Cloud
 ```markdown
-![AWS](https://img.shields.io/badge/AWS-Cloud-orange?logo=amazonaws&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python&logoColor=white)
-![AWS Lambda](https://img.shields.io/badge/AWS-Lambda-orange?logo=awslambda&logoColor=white)
-![Amazon API Gateway](https://img.shields.io/badge/API-Gateway-red?logo=amazonapigateway&logoColor=white)
-![Amazon DynamoDB](https://img.shields.io/badge/Amazon-DynamoDB-blue?logo=amazondynamodb&logoColor=white)
-![Amazon S3](https://img.shields.io/badge/Amazon-S3-green?logo=amazons3&logoColor=white)
-![Amazon SNS](https://img.shields.io/badge/Amazon-SNS-yellow?logo=amazonaws&logoColor=white)
-![Amazon CloudFront](https://img.shields.io/badge/Amazon-CloudFront-blue?logo=amazoncloudfront&logoColor=white)
-![CloudFormation](https://img.shields.io/badge/CloudFormation-IaC-orange?logo=awscloudformation&logoColor=white)
-![Serverless](https://img.shields.io/badge/Architecture-Serverless-success)
-![Infrastructure as Code](https://img.shields.io/badge/IaC-Infrastructure%20as%20Code-purple)
+## 🛠️ Technologies
+
+![AWS](https://img.shields.io/badge/AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![AWS Lambda](https://img.shields.io/badge/AWS_Lambda-FF9900?style=for-the-badge&logo=awslambda&logoColor=white)
+![API Gateway](https://img.shields.io/badge/API_Gateway-FF4F8B?style=for-the-badge&logo=amazonapigateway&logoColor=white)
+![DynamoDB](https://img.shields.io/badge/DynamoDB-4053D6?style=for-the-badge&logo=amazondynamodb&logoColor=white)
+![Amazon S3](https://img.shields.io/badge/Amazon_S3-569A31?style=for-the-badge&logo=amazons3&logoColor=white)
+![Amazon SNS](https://img.shields.io/badge/Amazon_SNS-DD344C?style=for-the-badge&logo=amazonaws&logoColor=white)
+![CloudFormation](https://img.shields.io/badge/CloudFormation-FF4F00?style=for-the-badge&logo=awscloudformation&logoColor=white)
+![CloudFront](https://img.shields.io/badge/CloudFront-8C4FFF?style=for-the-badge&logo=amazoncloudfront&logoColor=white)
+![IAM](https://img.shields.io/badge/IAM-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
+![Serverless](https://img.shields.io/badge/Serverless-000000?style=for-the-badge&logo=serverless&logoColor=white)
+![Infrastructure as Code](https://img.shields.io/badge/Infrastructure_as_Code-623CE4?style=for-the-badge)
 ```
 [![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge)](https://d2p73z2docwgx1.cloudfront.net)
 
